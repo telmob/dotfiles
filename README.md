@@ -3,6 +3,6 @@
 
 Clean scrot:
 
-![Clean_Scrot]telmob.github.com/dotfiles/pics/clean.png
+![Clean_Scrot](pics/clean.png)
 
 

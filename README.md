@@ -1,2 +1,4 @@
 # dotfiles
-Intended for reference only
+- Intended for personal reference.
+
+

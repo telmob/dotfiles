@@ -5,4 +5,7 @@ Clean scrot:
 
 ![Clean_Scrot](pics/clean.png)
 
+Busy scrot:
+
+![Clean_Scrot](pics/busy.png)
 

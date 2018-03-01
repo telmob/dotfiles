@@ -1,0 +1,2 @@
+#!/bin/sh
+'feh' '--bg-fill' '/home/pintas/Pictures/Arch_Linux_2650.jpg' 

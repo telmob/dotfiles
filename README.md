@@ -10,7 +10,7 @@
 - Arc darker GTK Theme<br/>
 - Numix icons<br/>
 - Noto Sans; Wuncon Siji; Awesome<br/>
-- Arch Linux by [hundane](https://www.deviantart.com/art/Arch-Linux-163630829)<br/><br/> wallpaper
+- Arch Linux by [hundane](https://www.deviantart.com/art/Arch-Linux-163630829) wallpaper<br/><br/>
 
 
 Clean:

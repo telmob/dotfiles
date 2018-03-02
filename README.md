@@ -1,7 +1,7 @@
 # dotfiles
 #### Some config files intended for personal reference and backup. Many of these files are still being edited or are completely useless, so mind that.
 
-##### Current setup:
+#### Current setup:
 - Arch linux<br/>
 - bspwm<br/>
 - Polybar<br/>

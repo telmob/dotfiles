@@ -1,416 +1,228 @@
-;=====================================================
-;
-;   To learn more about how to configure Polybar
-;   go to https://github.com/jaagr/polybar
-;
-;   The README contains alot of information
-;
-;=====================================================
-
-[colors]
-;background = ${xrdb:color0:#222}
-background = #222
-background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
-foreground-alt = #ccc
-primary = #267fb5
-secondary = #748aa6
-alert = #FF410D
-
-[bar/main]
-monitor = ${env:MONITOR:LVDS-1}
-width = 100%
-height = 24
-offset-x = 0%
-offset-y = 0%
-;radius = 0.0
-fixed-center = true
-bottom = true
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-underline-size = 2
-underline-color = #267fb5
-
-line-size = 2
-line-color = #267fb5
-
-border-size = 2
-border-color = #00000000
-spacing = 1
-padding-left = 0
-padding-right = 0
-
-module-margin-left = 2
-module-margin-right = 2
-
-font-0 = "Noto Sans:pixelsize=9;1"
-font-1 = "Wuncon Siji:size=9:antialias=true:style=solid"
-font-2 = "Font Awesome 5 Free:style=solid:pixelsize=10;2:antialias=true"
-font-3 = "Font Awesome 5 Brands:style=solid:pixelsize=10;2:antialias=true"
-
-modules-left = powermenu cpu temperature memory wlan
-modules-center = bspwm
-modules-right = spotify redshift battery volume updates date
-
-tray-position = right
-tray-padding = 3
-;tray-transparent = true
-;tray-background = #0063ff
-
-wm-restack = bspwm
-
-;override-redirect = true
-
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
-
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = "  "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
-[module/filesystem]
-type = internal/fs
-interval = 25
-
-mount-0 = /
-mount-1 = /home
-
-
-label-mounted = %{F#267fb5}%mountpoint%%{F-}: %percentage_used%%
-label-unmounted = %mountpoint% not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
-
-[module/bspwm]
-type = internal/bspwm
-
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-;ws-icon-default = 
-
-format = <label-state> <label-mode>
-
-label-focused = %icon%
-label-focused-background = #88000000
-label-focused-underline= #267fb5
-label-focused-padding = 5
-
-label-occupied = %icon%
-label-occupied-padding = 5
-
-label-urgent = %icon%
-label-urgent-padding = 5
-
-label-empty = %icon%
-label-empty-foreground = #44ffffff
-label-empty-padding = 5
-label-visible = %icon%
-
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
-[module/backlight]
-type = internal/backlight
-card = intel_backlight
-
-format = <label>
-format-prefix = "  "
-
-;bar-width = 10
-;bar-indicator = |
-;bar-indicator-foreground = #ff
-;bar-indicator-font = 2
-;bar-fill = ─
-;bar-fill-font = 2
-;bar-fill-foreground = ${colors.alert}
-;bar-empty = ─
-;bar-empty-font = 2
-;bar-empty-foreground = ${colors.foreground-alt}
-
-[module/backlight-acpi]
-inherit = module/backlight
-type = internal/backlight
-card = intel_backlight
-
-[module/battery]
-type = internal/battery
-
-full-at = 99
-
-battery = BAT0
-adapter = AC0
-
-poll-interval = 5
-
-format-charging = <animation-charging>  <label-charging>
-format-discharging = <ramp-capacity>  <label-discharging>
-format-full = <ramp-capacity>  <label-full>
-label-charging = %percentage%%
-label-discharging = %percentage%
-label-full = %percentage%
-format-charging-padding = -1
-format-discharging-padding = -1
-format-full-padding = -1
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
-
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-framerate = 750
-
-[module/spotify]
-type = custom/script
-
-exec = ~/.config/polybar/custom/spotify.py
-interval = 1
-
-format = <label>   
-#format-background = #dd00c6e0
-#format-foreground = #fff
-#format-padding = 4
-
-label = %output%
-
-[module/cpu]
-type = internal/cpu
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = ${colors.alert}
-label = %percentage%%
-
-[module/memory]
-type = internal/memory
-interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = ${colors.primary}
-label = %percentage_used%%
-
-[module/wlan]
-type = internal/network
-interface = wlp2s0
-interval = 3.0
-
-format-connected = <label-connected>
-format-connected-underline = ${colors.primary}
-label-connected =   %downspeed%
-;label-connected = %essid%
-
-;format-disconnected = X
-format-disconnected = <label-disconnected>
-format-disconnected-underline = ${self.format-connected-underline}
-label-disconnected = %ifname% disconnected
-label-disconnected-foreground = ${colors.foreground-alt}
-
-;ramp-signal-0 = 1
-;ramp-signal-1 = 2
-;ramp-signal-2 = 3
-;ramp-signal-3 = 4
-;ramp-signal-4 = 5
-;ramp-signal-foreground = ${colors.foreground-alt}
-
-[module/eth]
-type = internal/network
-interface = enp3s0
-interval = 3.0
-
-format-connected-underline = ${colors.primary}
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
-
-[module/date]
-type = internal/date
-interval = 1
-
-;date = ""
-date-alt = " %d-%m-%Y |"
-
-time = %H:%M
-time-alt = %H:%M:%S
-
-;format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-
-label = %date% %time%
-
-
-[module/volume]
-type = internal/volume
-
-format-volume = <ramp-volume>  <label-volume>
-format-muted = <label-muted>
-label-volume = %percentage%
-label-muted = X
-label-muted-foreground = #aaa
-format-volume-padding = 0
-format-muted-padding = 0
-
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-headphones-0 = 
-
-
-;[module/volume]
-;type = internal/volume
-
-;format-volume = <label-volume>
-;format-volume = <bar-volume> <label-volume>
-;label-volume-foreground = ${root.foreground}
-
-;format-volume-prefix = "  "
-
-;format-muted-prefix = " "
-;format-muted-foreground = ${colors.foreground-alt}
-;label-muted = sound muted
-
-;bar-volume-width = 10
-;bar-volume-foreground-0 = ${colors.primary}
-;bar-volume-foreground-1 = ${colors.primary}
-;bar-volume-foreground-2 = ${colors.primary}
-;bar-volume-foreground-3 = ${colors.primary}
-;bar-volume-foreground-4 = ${colors.primary}
-;bar-volume-foreground-5 = ${colors.alert}
-;bar-volume-foreground-6 = ${colors.alert}
-;bar-volume-gradient = false
-;bar-volume-indicator = |
-;bar-volume-indicator-font = 2
-;bar-volume-fill = ─
-;bar-volume-fill-font = 2
-;bar-volume-empty = ─
-;bar-volume-empty-font = 2
-;bar-volume-empty-foreground = ${colors.foreground-alt}
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 70
-
-format = <ramp> <label>
-format-underline = ${colors.secondary}
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature%
-label-warn = %temperature%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
-
-[module/powermenu]
-type = custom/menu
-
-format-spacing = 1
-
-label-open = "    "
-label-open-foreground = ${colors.alert}
-label-close = " > cancel"
-label-close-foreground = ${colors.alert}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-menu-0-2 = suspend
-menu-0-2-exec = menu-open-3
-
-menu-1-0 = reboot
-menu-1-0-exec = systemctl reboot
-menu-1-1 = cancel
-menu-1-1-exec = menu-open-0
-
-menu-2-0 = power off
-menu-2-0-exec = systemctl poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
-
-menu-3-0 = suspend
-menu-3-0-exec = betterlockscreen -s
-menu-3-1 = cancel
-menu-3-1-exec = menu-open-0
-
-
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-
-[global/wm]
-margin-top = 0
-margin-bottom = 0
-
-; vim:ft=dosini
-
-[module/redshift]
-type = custom/script
-interval = 5
-
-exec = ~/.config/polybar/custom/redshift.sh
-
-[module/music]
-type = custom/script
-interval = 2
-
-label = %output:0:45:...%
-exec = ~/.config/polybar/custom/mpris.sh
-
-[module/updates]
-type = custom/script
-interval = 60
-format = <label>
-format-underline = ${colors.alert}
-label = "%output:0:30%"
-exec = .config/polybar/custom/updates.sh
-exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+	terminator
+    notify-send "Opening Terminator - Terminal"
+
+# firefox
+super + shift + f
+    firefox
+    notify-send "Opening Firefox - Web Browser"
+
+# gedit
+super + shift + g
+    gedit
+    notify-send "Opening Gedit - Text Editor"
+
+# nautilus
+super + shift + n
+    nautilus
+    notify-send "Opening Nautilus - File Manager"
+
+# spyder
+super + shift + s
+    bspc desktop --focus ^2 && /opt/anaconda/bin/spyder
+    notify-send "Opening Spyder3 - Python IDE"
+
+# GNOME System Monitor
+ctrl + shift + Escape
+	xfce4-taskmanager
+    notify-send "Opening Task-Manager"
+
+ program launcher
+super + space
+	dmenu_run
+
+# rofi -show run -lines 10 -padding 300 -opacity "100" -font "Roboto Mono 15" -width 1368 -separator-style "none" -hide-scrollbar -color-window "argb:dd000000, argb:0002b36, argb:7bffffff" -color-normal "argb:0ffffff, #ffffff, argb:0eee8d5, #ffffff, #000000" -color-active "argb:0fdf6e3, #268bd2, argb:0eee8d5, #268bd2, #fdf6e3" -color-urgent "argb:0fdf6e3, #dc322f, argb:0eee8d5, #dc322f, #fdf6e3"	
+
+#super + shift + space
+#	rofi -show drun
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd; \
+	notify-send "sxhkd config reloaded"
+
+#
+# bspwm hotkeys
+#
+
+# quit bspwm normally
+super + alt + Escape
+	bspc quit
+
+# close and kill
+super + {_,shift + }w
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
+super + y
+	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+
+# swap the current node and the biggest node
+super + g
+	bspc node -s biggest
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {x,y,z}
+	bspc node -g {locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+# super + {p,b,comma,period}
+# 	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous node
+super + {_,shift + }c
+	bspc node -f {next,prev}
+
+# focus the next/previous desktop
+super + bracket{left,right}
+	bspc desktop -f {prev,next}
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# focus the next/previous node in the same window
+super + {comma,period}
+    bspc node -f {next,prev}.local
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# zoom window
+super + {equal,minus}
+	bspc config window_gap $(( $(bspc config window_gap) {+,-} 5 ))
+
+super + ctrl + {Left,Right,Up,Down}
+    bspc node @focused:/ --rotate {270,90,180,180}
+
+# Screenshots
+Print
+	scrot; \
+	notify-send "Screenshot saved"
+
+ctrl + Print
+	gnome-screenshot -c; \
+	notify-send "Screenshot copied to clipboard"
+
+shift + Print
+	gnome-screenshot -a; \
+	notify-send "Screenshot saved"
+
+ctrl + shift + Print
+	gnome-screenshot -ac; \
+	notify-send "Screenshot copied to clipboard"
+
+# Lock Desktop
+super + shift + o
+ 	betterlockscreen -l dim
+    notify-send "Screen locked"
+
+# Reload Polybar
+super + shift + p
+    killall polybar && sh ~/.config/polybar/launch.sh
+    notify-send "Polybar reloaded"
+
+# VOLUME
+
+### Mute
+XF86AudioMute
+	amixer set Master toggle
+	/home/gamehelp16/Documents/dzvol -bg '#222222' -fg '#FFFFFF' -fn 'Noto Sans 11' -d 1 -y 650
+
+### Master Volume
+XF86AudioRaiseVolume
+	amixer set Master 2.5%+,5%+; \
+	/home/gamehelp16/Documents/dzvol -bg '#222222' -fg '#FFFFFF' -fn 'Noto Sans 11' -d 1 -y 650
+
+super + XF86AudioRaiseVolume
+	amixer set Master 0.5%+,1%+; \
+	/home/gamehelp16/Documents/dzvol -bg '#222222' -fg '#FFFFFF' -fn 'Noto Sans 11' -d 1 -y 650
+
+XF86AudioLowerVolume
+	amixer set Master 2.5%-,5%-; \
+	/home/gamehelp16/Documents/dzvol -bg '#222222' -fg '#FFFFFF' -fn 'Noto Sans 11' -d 1 -y 650
+
+super + XF86AudioLowerVolume
+	amixer set Master 0.5%-,1%-; \
+	/home/gamehelp16/Documents/dzvol -bg '#222222' -fg '#FFFFFF' -fn 'Noto Sans 11' -d 1 -y 650
+
+# BRIGHTNESS
+
+# Brightness goes up
+#/home/gamehelp16/Documents/brightness -u
+#XF86MonBrightnessUp
+super + F6
+	/home/gamehelp16/Documents/brightness -u
+
+# Brightness goes down
+# XF86MonBrightnessDown
+super + F5
+	/home/gamehelp16/Documents/brightness -d	

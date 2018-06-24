@@ -24,7 +24,7 @@ super + shift + n
 
 # spyder
 super + shift + s
-    bspc desktop --focus ^4 && spyder3
+    bspc desktop --focus ^2 && /opt/anaconda/bin/spyder
     notify-send "Opening Spyder3 - Python IDE"
 
 # GNOME System Monitor
@@ -156,6 +156,7 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+# zoom window
 super + {equal,minus}
 	bspc config window_gap $(( $(bspc config window_gap) {+,-} 5 ))
 
@@ -164,7 +165,7 @@ super + ctrl + {Left,Right,Up,Down}
 
 # Screenshots
 Print
-	gnome-screenshot; \
+	scrot; \
 	notify-send "Screenshot saved"
 
 ctrl + Print
@@ -181,12 +182,12 @@ ctrl + shift + Print
 
 # Lock Desktop
 super + shift + o
- 	betterlockscreen -l dimblur
-    notifu-send "Screen locked"
+ 	betterlockscreen -l dim
+    notify-send "Screen locked"
 
 # Reload Polybar
 super + shift + p
-    killall polybar && polybar main
+    killall polybar && sh ~/.config/polybar/launch.sh
     notify-send "Polybar reloaded"
 
 # VOLUME

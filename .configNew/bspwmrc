@@ -1,0 +1,66 @@
+#! /bin/sh
+
+betterlockscreen -l dimblur
+sxhkd &
+
+bspc monitor -d 1 2 3 4 5 6
+#bspc monitor -d
+#bspc desktop -B
+
+bspc config bottom_padding 10
+
+bspc config border_width         0
+bspc config window_gap           10
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc desktop ^3 -l monocle
+bspc desktop ^5 -l monocle
+
+bspc rule -a Gimp desktop=^5 state=floating follow=on
+bspc rule -a Transmission-gtk desktop=^5 state=floating follow=on
+bspc rule -a Terminator desktop=^1 follow=on
+bspc rule -a Firefox desktop=^3 follow=on
+#bspc rule -a Genymotion desktop=^3
+bspc rule -a TelegramDesktop desktop=^4
+bspc rule -a Subl desktop=^4
+bspc rule -a Spotify desktop=^5
+#bspc rule -a Lmms desktop=^6
+bspc rule -a Spyder3 desktop=^2 follow=on
+bspc rule -a Gnome-mplayer desktop=^5 state=floating follow=on
+bspc rule -a Gedit state=floating
+bspc rule -a Gnome-calculator state=floating
+bspc rule -a Blueberry.py state=floating
+bspc rule -a audacious desktop=^5 state=floating follow=on
+bspc rule -a Viewnior state=floating
+bspc rule -a Nautilus state=floating
+bspc rule -a File-roller state=floating
+bspc rule -a Gnome-system-monitor state=floating
+
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+bspc config super mod4
+bspc config pointer_action1 move
+bspc config pointer_action2 none
+bspc config pointer_action3 resize_corner
+bspc config click_to_focus true
+bspc config focus_follows_pointer true
+
+bspc config presel_feedback_color \#aaaaaa
+
+xsetroot -cursor_name left_ptr
+telegram-desktop &
+#feh --bg-fill ~/.wallpaper/thinkpad_neuron.jpg
+feh --bg-fill ~/.wallpaper/Arch_Linux_2650_small.jpg
+#feh --bg-fill --randomize ~/.wallpaper/* &
+compton --config ~/.compton.conf -b
+compiz --replace
+xrdb -merge ~/.Xdefaults
+nm-applet &
+menutray &
+blueberry-tray &
+redshift &
+sh .config/polybar/launch.sh
